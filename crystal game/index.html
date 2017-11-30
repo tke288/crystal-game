@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<title>Crystal Game</title>
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+</head>
+
+<body>
+<div class="container">
+  <div class="info">
+    <p>You will be given a random number at the start of the game.</p>
+    <p>There are four crystals below.  By clicking on a crystal you will add a specific amount of points to your total score </p>
+    <p>You win your game by matching your total score to the random number.  You lose the game if your total score goes above the random number. </p>
+    <p>The value of each crystal is hidden from you until you click on it. </p>
+    <p>Each time the game starts, the game will change the value of each crystal.</p>
+  </div>
+  <br>
+  <br>
+  
+  <div id="target">Your target score is: </div>
+  <br>
+  <div id="yourScore">Your current score is: 0</div>
+  <br>
+  <div id="wins">Number of wins: 0 </div>
+  <br>
+  <div id="losses">Number of losses: 0 </div>
+  <br>
+  <br>  
+  
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="gems" id="red">
+      <img src="images/red.png">
+      </div>
+    </div>
+
+    <div class="col-sm-3">
+      <div class="gems" id="blue">
+      <img src="images/blue.png">
+      </div>
+    </div>
+  
+    <div class="col-sm-3">
+      <div class="gems" id="green">
+      <img src="images/green.png">
+      </div>
+    </div>
+
+    <div class="col-sm-3" >
+      <div class="gems" id="yellow">
+      <img src="images/yellow.png">
+      </div>
+    </div>  
+  </div>
+</div>
+
+<script>
+  var red;
+  var blue;
+  var green;
+  var yellow;
+  var yourScore =0;
+  var target = 0;
+  var wins = 0;
+  var losses = 0;
+
+  //create random function(used site https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random)
+  function randomNumber(min, max){
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+
+  function reset(){
+    yourScore = 0;
+    $("#yourScore").html("Your current score is: " + yourScore);
+    target = randomNumber(25, 75);
+    $("#target").html("Your target score is: " + target);
+    red = randomNumber(3,13);
+    blue = randomNumber(3,13);
+    green = randomNumber(3,13);
+    yellow = randomNumber(3,13);
+  }
+
+  function outcome(){
+    if (yourScore===target){
+      alert("You Win!");
+      wins++;
+      $("#wins").html("Number of wins: " + wins);
+      reset();
+    }
+
+    else if (yourScore>target){
+      alert("You Lose!");
+      losses++;
+      $("#losses").html("Number of losses: " + losses);
+      reset();
+    }
+  }
+
+  var target = randomNumber(25,75);
+  $("#target").html("Your target score is: " + target);
+  var red = randomNumber(3,13);
+  var blue = randomNumber(3,13);
+  var green = randomNumber(3,13);
+  var yellow = randomNumber(3,13);
+
+  $("#red").on("click", function(){
+    yourScore=red+yourScore;
+    $("#yourScore").html("Your current score is: " + yourScore);
+    outcome();
+  });
+
+  $("#blue").on("click", function(){
+    yourScore=blue+yourScore;
+    $("#yourScore").html("Your current score is: " + yourScore);
+    outcome();
+  });
+
+  $("#green").on("click", function(){
+    yourScore=green+yourScore;
+    $("#yourScore").html("Your current score is: " + yourScore);
+    outcome();
+  });
+
+  $("#yellow").on("click", function(){
+    yourScore=yellow+yourScore;
+    $("#yourScore").html("Your current score is: " + yourScore);
+    outcome();
+  });
+    
+  
+
+</script>
+
+</body>
+
+</html>
